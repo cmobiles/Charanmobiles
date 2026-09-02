@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#090909">
+  <title>Charan Mobiles | Smart Choice. Smart Life.</title>
+  <link rel="icon" href="assets/logo.png">
+  <style>
+      /* Critical fallback: admin content must never flash publicly even if CSS fails to load */
+      [hidden]{display:none!important}
+      #ownerPanel[hidden],#ownerLogin[hidden],#buyModal[hidden],#offerPopup[hidden]{display:none!important}
+    </style>
+    <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./animation.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <div id="offerPopup" class="offer-popup" hidden aria-modal="true">
+    <div class="offer-card glass">
+      <button class="close-popup" onclick="closeOfferPopup()" aria-label="Close offer">×</button>
+      <div id="popupOfferContent"></div>
+    </div>
+  </div>
+
+  <header class="site-header glass">
+    <a href="#home" class="brand">
+      <img src="assets/logo.png" alt="Charan Mobiles logo">
+      <div><strong>CHARAN</strong><span>MOBILES</span></div>
+    </a>
+    <nav>
+      <a href="#products">Products</a>
+      <a href="#offers">Offers</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="owner-trigger" onclick="openOwnerLogin()">Owner Corner</button>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">NARAVI • KARNATAKA</p>
+        <h1 class="logo-reveal">CHARAN <em>MOBILES</em></h1>
+        <p class="hero-text">Smart Choice. Smart Life. Genuine mobile phones, accessories and electronics with transparent product information.</p>
+        <div class="hero-actions">
+          <a class="btn btn-light" href="#products">Explore Products</a>
+          <button class="btn btn-outline" onclick="openMaps()">Slide / Reach Us</button>
+        </div>
+        <div class="status-line" id="shopStatus"></div>
+      </div>
+      <div class="hero-visual crystal">
+        <img src="assets/logo.png" alt="Charan Mobiles">
+        <div class="gold-orbit orbit-one"></div><div class="gold-orbit orbit-two"></div>
+      </div>
+    </section>
+
+    <section class="quick-info">
+      <div><b>Call / WhatsApp</b><a href="tel:+916360509055">6360509055</a></div>
+      <div><b>Shop Timing</b><span id="timingText">8:00 AM – 8:00 PM</span></div>
+      <div><b>Location</b><span>Naravi – 574109</span></div>
+    </section>
+
+    <section id="products" class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">GENUINE LISTINGS</p><h2>Products</h2></div>
+        <input id="searchProducts" class="search" placeholder="Search products..." oninput="renderProducts()">
+      </div>
+      <div id="productGrid" class="product-grid"></div>
+      <p id="emptyProducts" class="empty-state">No products have been published yet.</p>
+    </section>
+
+    <section id="offers" class="section alt-section">
+      <div class="section-head"><div><p class="eyebrow">OWNER VERIFIED</p><h2>Offers & Events</h2></div></div>
+      <div id="offerGrid" class="offer-grid"></div>
+      <p id="emptyOffers" class="empty-state">No active offers at the moment.</p>
+    </section>
+
+    <section id="services" class="section">
+      <div class="section-head"><div><p class="eyebrow">MORE THAN MOBILES</p><h2>Our Services</h2></div></div>
+      <div id="serviceGrid" class="service-grid"></div>
+    </section>
+
+    <section class="section payment-section">
+      <div class="payment-copy">
+        <p class="eyebrow">SECURE PAYMENT</p><h2>Pay via UPI</h2>
+        <p>Scan the official QR code when payment is requested by Charan Mobiles.</p>
+      </div>
+      <img src="assets/payment-qr.jpg" class="qr-image glass" alt="Charan Mobiles UPI QR code">
+    </section>
+
+    <section id="bill" class="section bill-section">
+      <div class="section-head"><div><p class="eyebrow">CUSTOMER BILL</p><h2>E-Bill</h2></div></div>
+      <div class="bill-panel glass">
+        <p>Enter your registered phone number and bill number to request your bill from the shop.</p>
+        <div class="bill-form">
+          <input id="billPhone" type="tel" placeholder="Phone number">
+          <input id="billNo" type="text" placeholder="Bill number">
+          <button class="btn btn-light" onclick="requestBill()">Request Bill</button>
+        </div>
+        <details><summary>View official bill format</summary><img src="assets/ebill-template.png" alt="Official Charan Mobiles E-Bill template"></details>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div>
+        <p class="eyebrow">VISIT CHARAN MOBILES</p>
+        <h2>Near Sooryanarayana Temple, Naravi</h2>
+        <p>Belthangady Taluk, Dakshina Kannada District, Karnataka, India – 574109</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-light" href="https://wa.me/916360509055" target="_blank" rel="noopener">WhatsApp Us</a>
+        <button class="btn btn-outline" onclick="openMaps()">Get Directions</button>
+        <a class="btn btn-outline" href="https://www.instagram.com/charanmobiles09?igsh=anR2ajczeWRrcHoy" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> Charan Mobiles • Smart Choice. Smart Life.</footer>
+
+  <div id="buyModal" class="modal" hidden>
+    <div class="modal-card glass">
+      <button class="modal-close" onclick="closeBuyModal()">×</button>
+      <p class="eyebrow">WHATSAPP ENQUIRY</p><h2 id="buyProductName">Product</h2>
+      <input id="customerName" placeholder="Your name">
+      <input id="customerPhone" type="tel" placeholder="Your phone number">
+      <input id="customerPlace" placeholder="Your place / location">
+      <button class="btn btn-light full" onclick="sendWhatsAppEnquiry()">Continue to WhatsApp</button>
+    </div>
+  </div>
+
+  <div id="ownerLogin" class="modal" hidden>
+    <div class="modal-card glass">
+      <button class="modal-close" onclick="closeOwnerLogin()">×</button>
+      <p class="eyebrow">PRIVATE AREA</p><h2>Owner Corner</h2>
+      <input id="ownerPassword" type="password" placeholder="Enter owner password">
+      <button class="btn btn-light full" onclick="ownerLogin()">Login</button>
+      <p id="loginError" class="error"></p>
+    </div>
+  </div>
+
+  <div id="ownerPanel" class="owner-panel" hidden>
+    <aside>
+      <div class="owner-brand">CHARAN <span>ADMIN</span></div>
+      <button onclick="showAdminTab('dashboard')">Dashboard</button>
+      <button onclick="showAdminTab('products')">Products</button>
+      <button onclick="showAdminTab('offers')">Offers</button>
+      <button onclick="showAdminTab('settings')">Appearance & Settings</button>
+      <button onclick="ownerLogout()">Logout</button>
+    </aside>
+    <div class="admin-content">
+      <button class="admin-close" onclick="ownerLogout()">Close ×</button>
+      <div id="admin-dashboard" class="admin-tab">
+        <h2>Dashboard</h2><div id="dashboardStats" class="stats"></div>
+      </div>
+      <div id="admin-products" class="admin-tab" hidden>
+        <h2>Add / Edit Product</h2>
+        <form id="productForm" onsubmit="saveProduct(event)">
+          <input id="pName" required placeholder="Product name">
+          <select id="pType"><option>Mobile</option><option>Accessory</option><option>Electronic Gadget</option></select>
+          <input id="pStock" type="number" min="0" required placeholder="Stock">
+          <input id="pActual" type="number" min="0" placeholder="Actual price">
+          <input id="pOffer" type="number" min="0" placeholder="Offer price">
+          <select id="pCondition"><option>New</option><option>Used</option><option>Refurbished</option></select>
+          <textarea id="pDetails" placeholder="Details / specifications"></textarea>
+          <textarea id="pDamage" placeholder="Damages (write None if no damage)"></textarea>
+          <input id="pImages" type="file" accept="image/*" multiple>
+          <button class="btn btn-light">Save Product</button>
+        </form>
+        <div id="adminProductList"></div>
+      </div>
+      <div id="admin-offers" class="admin-tab" hidden>
+        <h2>Offers & Events</h2>
+        <form id="offerForm" onsubmit="saveOffer(event)">
+          <input id="oTitle" required placeholder="Offer title">
+          <textarea id="oText" placeholder="Offer details"></textarea>
+          <input id="oImage" type="file" accept="image/*">
+          <label><input id="oPopup" type="checkbox"> Show as non-intrusive homepage popup</label>
+          <button class="btn btn-light">Publish Offer</button>
+        </form>
+        <div id="adminOfferList"></div>
+      </div>
+      <div id="admin-settings" class="admin-tab" hidden>
+        <h2>Appearance & Website Settings</h2>
+        <div class="settings-grid">
+          <label>Background color <input id="setBg" type="color" value="#090909"></label>
+          <label>Button color <input id="setBtn" type="color" value="#f5f3ee"></label>
+          <label>Accent color <input id="setAccent" type="color" value="#d6ad50"></label>
+          <label><input id="setAnimations" type="checkbox" checked> Enable animations</label>
+          <label><input id="setEffects" type="checkbox" checked> Enable crystal glass effects</label>
+          <label>Opening <input id="setOpen" value="8:00 AM"></label>
+          <label>Closing <input id="setClose" value="8:00 PM"></label>
+          <label>Holiday <input id="setHoliday" value="Sunday"></label>
+        </div>
+        <button class="btn btn-light" onclick="saveSettings()">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./data.js"></script>
+  <script src="./all.js"></script>
+  <script src="./owner.js"></script>
+</body>
+</html>
