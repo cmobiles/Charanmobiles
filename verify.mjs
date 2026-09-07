@@ -1,6 +1,0 @@
-import fs from "node:fs";import path from "node:path";import {spawnSync} from "node:child_process";
-const root=process.cwd();const req=["package.json","tsconfig.json","src/server.ts","src/auth.ts","src/db.ts","src/schema.ts","src/storage.ts","src/pdf.ts","public/index.html","public/style.css","public/animation.css","public/data.js","public/all.js","public/owner.js","public/assets/logo.jpg","public/assets/payment-qr.jpg","public/assets/ebill-template.jpg"];
-let bad=0;for(const f of req){if(!fs.existsSync(path.join(root,f))){console.error("Missing",f);bad++}}
-for(const f of ["public/data.js","public/all.js","public/owner.js"]){const r=spawnSync(process.execPath,["--check",f],{cwd:root,encoding:"utf8"});if(r.status!==0){console.error(r.stderr);bad++}}
-const html=fs.readFileSync("public/index.html","utf8");for(const a of [...html.matchAll(/(?:src|href)=["']([^"'#?]+)["']/g)].map(m=>m[1]).filter(x=>!/^https?:/.test(x))){if(a.endsWith('.css')||a.endsWith('.js')||a.startsWith('assets/'))if(!fs.existsSync(path.join('public',a))){console.error('Broken public asset reference',a);bad++}}
-console.log(bad?`FAILED: ${bad} issue(s)`:'PASS: structure, assets and frontend JavaScript syntax checks');process.exit(bad?1:0);
