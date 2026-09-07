@@ -1,4 +1,0 @@
-const DEFAULT_SETTINGS={bg:"#080808",btn:"#f4f1eb",accent:"#d6ad50",animations:true,effects:true,open:"8:00 AM",close:"8:00 PM",holiday:"Sunday",leave:"",qr:""};
-let products=[],offers=[],services=[],reminders=[],bills=[],settings=DEFAULT_SETTINGS,selectedProduct=null;
-async function api(url,opt={}){const headers={...(opt.headers||{})};if(opt.body&&typeof opt.body==="string"&&!headers["Content-Type"])headers["Content-Type"]="application/json";const r=await fetch(url,{credentials:"same-origin",...opt,headers});if(!r.ok){const d=await r.json().catch(()=>({}));throw new Error(d.error||`Request failed (${r.status})`)}return r.status===204?null:r.json()}
-async function publicLoad(){[products,offers,services,settings]=await Promise.all([api("/api/public/products"),api("/api/public/offers"),api("/api/public/services"),api("/api/public/settings")]);}
