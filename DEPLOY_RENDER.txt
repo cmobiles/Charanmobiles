@@ -1,0 +1,25 @@
+CHARAN MOBILES - RENDER DEPLOYMENT
+
+Upload ALL files and folders from this ZIP directly into the ROOT of your GitHub repository.
+Do NOT create an extra charan-fixed folder.
+
+Render settings:
+Runtime: Node
+Root Directory: leave empty
+Build Command: bun install && bun run build
+Start Command: bun start
+Health Check Path: /api/health
+
+Required environment variables:
+TURSO_DATABASE_URL
+TURSO_AUTH_TOKEN
+CHARAN_OWNER_PASSWORD
+TIGRIS_ENDPOINT
+TIGRIS_BUCKET
+TIGRIS_ACCESS_KEY_ID
+TIGRIS_SECRET_ACCESS_KEY
+TIGRIS_PUBLIC_BASE_URL
+
+Optional WhatsApp Cloud API variables are in .env.example.
+
+Do not upload .env files containing real secrets to GitHub.
